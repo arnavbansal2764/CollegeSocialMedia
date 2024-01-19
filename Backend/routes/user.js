@@ -16,7 +16,7 @@ router.post('/signup', async(req, res) => {
     
     const existUsername = await User.findOne({username});
     const existSid = await User.findOne({sid});
-    const existemail = await User.findOne({email});
+    const existEmail = await User.findOne({email});
     if(existUsername)
     {
         res.status(403).json({
@@ -29,7 +29,7 @@ router.post('/signup', async(req, res) => {
             message:"Student already registered"
         })
     }
-    else if(existemail)
+    else if(existEmail)
     {
         res.status(403).json({
             message : "Email already registered"
