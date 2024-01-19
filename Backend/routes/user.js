@@ -1,9 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const {User}=require("../db");
-const {default: mongoose} = require("mongoose");
-
-
+const {User}=require("../db/index");
 
 router.post('/signup', async(req, res) => {
     // signup
