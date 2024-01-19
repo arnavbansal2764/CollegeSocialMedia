@@ -5,7 +5,7 @@ const {default: mongoose} = require("mongoose");
 
 
 
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
     // signup
     const username = req.body.username;
     const password = req.body.password;
@@ -16,7 +16,7 @@ router.post('/signup', (req, res) => {
     const college = req.body.college;
     const name = req.body.name;
 
-    User.create({
+    await User.create({
         username,
         name,
         email,
