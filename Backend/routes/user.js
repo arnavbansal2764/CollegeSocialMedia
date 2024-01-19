@@ -5,7 +5,7 @@ const {default: mongoose} = require("mongoose");
 
 
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async(req, res) => {
     // signup
     const username = req.body.username;
     const password = req.body.password;
@@ -16,6 +16,29 @@ router.post('/signup', async (req, res) => {
     const college = req.body.college;
     const name = req.body.name;
 
+    
+    const existUsername = await User.findOne({username});
+    const existSid = await User.findOne({sid});
+    const existemail = await User.findOne({email});
+    if(existUsername)
+    {
+        res.status(403).json({
+            message:"Username already taken !!"
+        })
+    }
+    else if(existSid)
+    {
+        res.status(403).json({
+            message:"Student already registered"
+        })
+    }
+    else if(existemail)
+    {
+        res.status(403).json({
+            message : "Email already registered"
+        })
+    }
+    else{
     await User.create({
         username,
         name,
@@ -29,7 +52,7 @@ router.post('/signup', async (req, res) => {
     res.json({
         message: "User created successfully"
     })
-
+    }
 
 });
 
