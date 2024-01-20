@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import io from "socket.io-client";
 
-function Chat({ socket, username, room }) {
+function Chat({username, room }) {
+  const socket = io.connect("http://localhost:3001");
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
