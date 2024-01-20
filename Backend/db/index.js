@@ -16,10 +16,10 @@ const UserSchema = new mongoose.Schema({
 });
 
 const RoomSchema = new mongoose.Schema({
-    roomid:String,
+    room:String,
     chats:[{
         author:String,
-        meesage:String,
+        message:String,
         room:String,
         time:String
     }]
@@ -29,4 +29,4 @@ const User = mongoose.model('User', UserSchema);
 const Room= mongoose.model('Room',RoomSchema)
 
 
-module.exports = {User,Chat,Room}
+module.exports = {User,Room}

@@ -12,7 +12,8 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5174","http://localhost:5173"],
+    
     methods: ["GET", "POST"],
   },
 });
@@ -24,18 +25,23 @@ io.on("connection", (socket) => {
     socket.join(roomid);
     const room = await Room.findOne({room:roomid})
     if(room){
-      socket.to(roomid).emit(room.chats)
+      console.log("initial chats are",room.chats)
+      socket.to(roomid).emit("initial_chats",room.chats)
+      
     }
     else{
-      socket.to(roomid).emit([])
+      Room.create({room:roomid,chats:[]})
+      console.log("initial chats are empty")
+      socket.to(roomid).emit("initial_chats",[])
     }
     
     console.log(`User with ID: ${socket.id} joined room: ${roomid}`);
   });
 
-  socket.on("send_message", (data) => {
+  socket.on("send_message", async (data) => {
     console.log("message recieved from",data.author,"message is",data.message,"at",data.time)
-    Room.findOneAndUpdate({room:data.room},{$push:{chats:data}});
+    await Room.findOneAndUpdate({room:data.room},{$push:{chats:data}}).exec();
+    console.log("chat saved",data)
     socket.to(data.room).emit("receive_message", data);
   });
 
