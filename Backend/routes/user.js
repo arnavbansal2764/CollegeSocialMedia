@@ -4,7 +4,13 @@ const { User } = require("../db/index");
 // const {default: mongoose} = require("mongoose");
 const { JWT_SECRET } = require("../config");
 const jwt = require("jsonwebtoken");
-
+const data = require("../MOCK_DATA.json");
+async function generaterandom()
+{
+    const first_name = data[Math.round(Math.round()*data.length)];
+    const last_name = data[Math.round(Math.round()*data.length)];
+    return {firstname : first_name, lastname : last_name};
+}
 router.post('/signup', async (req, res) => {
     // signup
     const username = req.body.username;
@@ -36,6 +42,12 @@ router.post('/signup', async (req, res) => {
         })
     }
     else {
+        const publicName = await generaterandom();
+        const existingName = await User.findOne({publicName:randomName});
+        while(existingName){
+            publicName = await generaterandom();
+        }
+
         await User.create({
             username,
             name,
@@ -44,10 +56,13 @@ router.post('/signup', async (req, res) => {
             graduation,
             sid,
             branch,
-            college
+            college,
+            publicName
         })
         res.json({
-            message: "User created successfully"
+            message: "User created successfully",
+            publicname : publicName
+            
         })
     }
 
@@ -72,4 +87,5 @@ router.post('/signin', async (req, res) => {
     }
 
 });
+
 module.exports = router
