@@ -15,7 +15,18 @@ const UserSchema = new mongoose.Schema({
 
 });
 
+const RoomSchema = new mongoose.Schema({
+    roomid:String,
+    chats:[{
+        author:String,
+        meesage:String,
+        room:String,
+        time:String
+    }]
+})
 
 const User = mongoose.model('User', UserSchema);
+const Room= mongoose.model('Room',RoomSchema)
 
-module.exports = {User}
+
+module.exports = {User,Chat,Room}
