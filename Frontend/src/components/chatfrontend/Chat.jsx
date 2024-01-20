@@ -47,11 +47,13 @@ function Chat({ socket, username, room }) {
         <div className="w-full text-center">
           <p>Live Chat : {username}</p>
         </div>
-        <div className="flex w-full flex-wrap overflow-scroll">
+        <div className="flex w-[100%] flex-wrap overflow-y-scroll h-[85%]">
           <ScrollToBottom>
             {messageList.map((messageContent) => {
               return (
-                <div>
+                <div className="flex flex-row flex-wrap p-0 m-0 w-[70%]"
+                style={{justifyContent:messageContent.author===username?"flexend":"flexstart", color:messageContent.author===username?"green":"red"
+                }}  >
                   <div>
                     <div>
                       <p>{messageContent.message}</p>
@@ -66,21 +68,19 @@ function Chat({ socket, username, room }) {
             })}
           </ScrollToBottom>
         </div>
-        <div className="flex flex-nowrap h-12">
-          <input
-            className="border border-black h-10"
-            type="text"
-            value={currentMessage}
-            placeholder=""
-            onChange={(event) => {
-              setCurrentMessage(event.target.value);
-            }}
-            onKeyDown={handelEnterPress}
-          />
-          <button className="h-10" onClick={sendMessage}>
-            &#9658;
-          </button>
-        </div>
+        <input
+          className="border border-black h-10"
+          type="text"
+          value={currentMessage}
+          placeholder=""
+          onChange={(event) => {
+            setCurrentMessage(event.target.value);
+          }}
+          onKeyDown={handelEnterPress}
+        />
+        <button className="h-10" onClick={sendMessage}>
+          &#9658;
+        </button>
       </div>
     </div>
   );
