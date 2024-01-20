@@ -38,6 +38,10 @@ function Chat({ socket, username, room }) {
   useEffect(() => {
     if (username !== "" && room !== "") {
       socket.emit("join_room", room);
+      socket.on("initial_chats",(chats)=>{
+        console.log("chats are",chats)
+        setMessageList(chats)
+      })
     }
   }, []);
 
