@@ -4,8 +4,8 @@ const { User } = require("../db/index");
 // const {default: mongoose} = require("mongoose");
 const { JWT_SECRET } = require("../config");
 const jwt = require("jsonwebtoken");
-const huehue = ()=>{console.log("router REached")}
-router.post('/signup', huehue,async (req, res) => {
+
+router.post('/signup',async (req, res) => {
     // signup
     
     console.log("user hit with req ",req)
