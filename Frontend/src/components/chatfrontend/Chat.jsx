@@ -3,7 +3,8 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import io from "socket.io-client";
 
 function Chat({username, room }) {
-  const socket = io.connect("http://localhost:3001");
+  if(username!=""){
+    const socket = io.connect("http://localhost:3001");
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
@@ -20,14 +21,13 @@ function Chat({username, room }) {
       };
 
       await socket.emit("send_message", messageData);
-      setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
     }
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
+    socket.on("receive_message", (messageData) => {
+      setMessageList((list) => messageData);
     });
   }, [socket]);
 
@@ -90,6 +90,7 @@ function Chat({username, room }) {
       </div>
     </div>
   );
+  }
 }
 
 export default Chat;
