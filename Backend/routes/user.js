@@ -4,15 +4,11 @@ const { User } = require("../db/index");
 // const {default: mongoose} = require("mongoose");
 const { JWT_SECRET } = require("../config");
 const jwt = require("jsonwebtoken");
-const data = require("../MOCK_DATA.json");
-async function generaterandom()
-{
-    const first_name = data[Math.round(Math.round()*data.length)];
-    const last_name = data[Math.round(Math.round()*data.length)];
-    return {firstname : first_name, lastname : last_name};
-}
-router.post('/signup', async (req, res) => {
+const huehue = ()=>{console.log("router REached")}
+router.post('/signup', huehue,async (req, res) => {
     // signup
+    
+    console.log("user hit with req ",req)
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
@@ -21,32 +17,32 @@ router.post('/signup', async (req, res) => {
     const branch = req.body.branch;
     const college = req.body.college;
     const name = req.body.name;
-
+    const publicName = "will decide later"
+    
 
     const existUsername = await User.findOne({ username });
     const existSid = await User.findOne({ sid });
     const existemail = await User.findOne({ email });
     if (existUsername) {
         res.status(403).json({
-            message: "Username already taken !!"
+            message: "Username already taken !!",
+            username:null,
         })
     }
     else if (existSid) {
         res.status(403).json({
-            message: "Student already registered"
+            message: "Student already registered",
+            username:null,
         })
     }
     else if (existemail) {
         res.status(403).json({
-            message: "Email already registered"
+            message: "Email already registered",
+            username:null,
         })
     }
     else {
-        const publicName = await generaterandom();
-        const existingName = await User.findOne({publicName:randomName});
-        while(existingName){
-            publicName = await generaterandom();
-        }
+        
 
         await User.create({
             username,
@@ -61,7 +57,7 @@ router.post('/signup', async (req, res) => {
         })
         res.json({
             message: "User created successfully",
-            publicname : publicName
+            username:username,
             
         })
     }
@@ -78,11 +74,12 @@ router.post('/signin', async (req, res) => {
     })
     if (user) {
         const token = jwt.sign({ username }, JWT_SECRET);
-        res.json({ token })
+        res.json({message:"Signed In" ,username:username})
     }
     else {
         res.status(411).json({
-            message: "Incorrect email or password "
+            message: "Incorrect email or password ",
+            username:null
         })
     }
 
