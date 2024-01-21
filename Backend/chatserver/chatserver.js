@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
     if(room){
       console.log("initial chats are",room.chats)
       socket.to(roomid).emit("initial_chats",room.chats)
-      initial_chats=[...initial_chats,room.chats]
+      initial_chats=room.chats;
     }
     else{
       await Room.create({room:roomid,chats:[]})
