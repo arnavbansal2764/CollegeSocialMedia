@@ -25,12 +25,15 @@ const LoginForm = () => {
       if (response.ok) {
         // Handle successful login, e.g., redirect to a dashboard
         console.log('Login successful!');
+        alert('Login Successful !!');
       } else {
         // Handle login failure
         console.error('Login failed');
+        alert('Login Unsuccessful');
       }
     } catch (error) {
       console.error('Error during login:', error);
+      alert('Error during login: ' + error);
     }
   };
 

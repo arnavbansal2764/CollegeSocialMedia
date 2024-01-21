@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 router.post('/signup',async (req, res) => {
     // signup
     
-    console.log("user hit with req ",req)
+
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
@@ -65,6 +65,7 @@ router.post('/signup',async (req, res) => {
 });
 
 router.post('/signin', async (req, res) => {
+
     const username = req.body.username;
     const password = req.body.password;
 

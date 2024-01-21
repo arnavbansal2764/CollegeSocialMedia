@@ -1,13 +1,13 @@
 import { useState } from "react";
-import LoginPage from "./Public/loginPage/login";
-import RegisterPage from "./Public/registerPage/register";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
 import Chat from "../src/components/chatfrontend/Chat"
 
 function App() {
   return (
     <div>
-      <RegisterPage />
-      <LoginPage />
+      <SignupForm />
+      <LoginForm />
       <Chat username="dushyant" room = "personal"/>
     </div>
   );

@@ -18,7 +18,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(formData)
     try {
       const response = await fetch('http://localhost:3000/user/signup', {
         method: 'POST',
@@ -29,14 +29,17 @@ const Signup = () => {
       });
 
       if (response.ok) {
-        // Handle successful signup, e.g., redirect to a new page
+        // Handle successful signup, e.g., redirect to a dashboard
         console.log('Signup successful!');
+        alert('Signup Successful !!');
       } else {
         // Handle signup failure
         console.error('Signup failed');
+        alert('Signup Unsuccessful');
       }
     } catch (error) {
       console.error('Error during signup:', error);
+      alert('Error during signup: ' + error);
     }
   };
 
