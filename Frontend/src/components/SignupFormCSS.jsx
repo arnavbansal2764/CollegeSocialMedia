@@ -1,5 +1,3 @@
-// SignupForm.js
-
 import React, { useState } from 'react';
 
 const SignupForm = () => {
@@ -51,7 +49,17 @@ const SignupForm = () => {
         <h2 style={styles.heading}>Sign Up</h2>
         <form style={styles.form} onSubmit={handleSubmit}>
           <label style={styles.label}>
-            Full Name:
+            Username:
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label}>
+            Name:
             <input
               type="text"
               name="name"
@@ -83,7 +91,7 @@ const SignupForm = () => {
           <label style={styles.label}>
             Graduation:
             <input
-              type="text"
+              type="number"
               name="graduation"
               value={formData.graduation}
               onChange={handleChange}
