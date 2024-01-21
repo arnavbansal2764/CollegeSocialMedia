@@ -78,32 +78,13 @@ router.post('/signup',async (req, res) => {
 
 });
 
-router.post('/signin', authenticate, (req, res) => {
-
-    // const username = req.body.username;
-    // const password = req.body.password;
-    
-    // // const user = await User.find({
-    // //     username,
-    // //     password
-    // // })
-    // const user = User.find(u => u.username === username && u.password === password);
-
-    // if (user) {
-    //     console.log(user);
-    //     res.json({
-    //         message : "Signed In",
-    //         username : username
-    //     })
-    // }
-    // else {
-    //     res.status(411).json({
-    //         message: "Incorrect email or password ",
-    //         username:null
-    //     })
-    // }
+router.post('/signin', authenticate, async(req, res) => {
+    const username = req.body.username;
+    const data = await User.findOne({username:username})
+    const college = data.college;
     res.json({message : "Login successfull ",
         username:req.body.username,
+        college:college,
 })
 });
 
