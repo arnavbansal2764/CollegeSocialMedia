@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Signup = () => {
+const Signup = ({globalUserName,setGlobalUserName}) => {
   const [formData, setFormData] = useState({
     username: '',
     name: '',
@@ -32,6 +32,9 @@ const Signup = () => {
         // Handle successful signup, e.g., redirect to a dashboard
         console.log('Signup successful!');
         alert('Signup Successful !!');
+        const data = await response.json();
+        setGlobalUserName(data.username)
+        console.log("usernmae is", globalUserName)
       } else {
         // Handle signup failure
         console.error('Signup failed');

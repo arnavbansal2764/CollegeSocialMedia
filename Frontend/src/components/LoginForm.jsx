@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const LoginForm = () => {
+const LoginForm = ({globalUserName,setGlobalUserName}) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -26,6 +26,9 @@ const LoginForm = () => {
         // Handle successful login, e.g., redirect to a dashboard
         console.log('Login successful!');
         alert('Login Successful !!');
+        const data = await response.json();
+        setGlobalUserName(data.username)
+        console.log("usernmae is", globalUserName)
       } else {
         // Handle login failure
         console.error('Login failed');
