@@ -16,7 +16,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
-
+let initial_chats=[];
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
@@ -26,10 +26,10 @@ io.on("connection", (socket) => {
     if(room){
       console.log("initial chats are",room.chats)
       socket.to(roomid).emit("initial_chats",room.chats)
-      
+      initial_chats=[...initial_chats,room.chats]
     }
     else{
-      Room.create({room:roomid,chats:[]})
+      await Room.create({room:roomid,chats:[]})
       console.log("initial chats are empty")
       socket.to(roomid).emit("initial_chats",[])
     }
@@ -40,8 +40,9 @@ io.on("connection", (socket) => {
   socket.on("send_message", async (data) => {
     console.log("message recieved from",data.author,"message is",data.message,"at",data.time)
     await Room.findOneAndUpdate({room:data.room},{$push:{chats:data}}).exec();
+    initial_chats=[...initial_chats,data]
     console.log("chat saved",data)
-    socket.to(data.room).emit("receive_message", data);
+    socket.to(data.room).emit("receive_message", initial_chats);
   });
 
   socket.on("disconnect", () => {
